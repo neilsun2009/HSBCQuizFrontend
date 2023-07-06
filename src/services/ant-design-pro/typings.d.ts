@@ -1,4 +1,13 @@
 declare namespace API {
+  type Comment = {
+    comment: string;
+  };
+
+  type AutoCompletionComment = {
+    comment: string;
+    isLoading: boolean;
+  };
+
   type CurrentUser = {
     name?: string;
     avatar?: string;
