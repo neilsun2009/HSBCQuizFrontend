@@ -1,0 +1,240 @@
+import { PageContainer } from '@ant-design/pro-components';
+import { Alert, Card, Col, Row, Statistic, Tabs, message } from 'antd';
+import React, { useEffect, useState } from 'react';
+import styles from './index.less';
+import {
+  getKeywordOccurenceStats,
+  getKeywordTop100,
+  getSelectedKeywords,
+} from '@/services/ant-design-pro/analysis';
+import { WordCloud, Pie } from '@ant-design/plots';
+import { MessageOutlined } from '@ant-design/icons';
+import CountUp from 'react-countup';
+
+const formatter = (value: number) => <CountUp end={value} separator="," />;
+
+const AddComment: React.FC = () => {
+  const [top100Words, setTop100Words] = useState<API.Keyword[]>([]);
+  const [selectedKeywords, setSelectedKeywords] = useState<API.Keyword[]>([]);
+  const [occurrenceCounts, setOccurrenceCounts] = useState<{ value: number; type: string }[]>([]);
+  const [occurrenceTimes, setOccurrenceTimes] = useState<{ value: number; type: string }[]>([]);
+
+  const handleGetKeywordTop100 = async () => {
+    try {
+      const result = await getKeywordTop100();
+      setTop100Words(result);
+    } catch (error) {
+      message.error('Get auto completion failed, please try again');
+    }
+  };
+
+  const handleGetSelectedKeywords = async () => {
+    try {
+      const result = await getSelectedKeywords();
+      setSelectedKeywords(result);
+    } catch (error) {
+      message.error('Get auto completion failed, please try again');
+    }
+  };
+
+  const handleGetWordOccurenceStats = async () => {
+    try {
+      const result = await getKeywordOccurenceStats();
+      const times: { value: number; type: string }[] = [];
+      const counts: { value: number; type: string }[] = [];
+      result.forEach((stat, idx, arr) => {
+        if (idx < arr.length - 1) {
+          const typeStr: string = `appears ${stat.threshold} ~ ${arr[idx + 1].threshold - 1} times`;
+          counts.push({
+            type: typeStr,
+            value: stat.numWords - arr[idx + 1].numWords,
+          });
+          times.push({
+            type: typeStr,
+            value: stat.totalOccurrence - arr[idx + 1].totalOccurrence,
+          });
+        } else {
+          const typeStr: string = `appears >= ${stat.threshold} times`;
+          counts.push({
+            type: typeStr,
+            value: stat.numWords,
+          });
+          times.push({
+            type: typeStr,
+            value: stat.totalOccurrence,
+          });
+        }
+      });
+      setOccurrenceCounts(counts);
+      setOccurrenceTimes(times);
+      console.log(times);
+    } catch (error) {
+      message.error('Get auto completion failed, please try again');
+    }
+  };
+
+  useEffect(() => {
+    handleGetKeywordTop100();
+    handleGetSelectedKeywords();
+    handleGetWordOccurenceStats();
+  }, []);
+
+  const occurrenceTabItems = [
+    {
+      key: '1',
+      label: `How many kind of words fall into each category?`,
+      children: (
+        <Pie
+          data={occurrenceCounts}
+          angleField="value"
+          colorField="type"
+          radius={0.75}
+          label={{
+            type: 'spider',
+            labelHeight: 28,
+            content: '{name}\n{percentage}',
+          }}
+          interactions={[
+            {
+              type: 'element-selected',
+            },
+            {
+              type: 'element-active',
+            },
+          ]}
+        />
+      ),
+    },
+    {
+      key: '2',
+      label: `And how many times do they appear in total?`,
+      children: (
+        <Pie
+          data={occurrenceTimes}
+          angleField="value"
+          colorField="type"
+          radius={0.75}
+          label={{
+            type: 'spider',
+            labelHeight: 28,
+            content: '{name}\n{percentage}',
+          }}
+          interactions={[
+            {
+              type: 'element-selected',
+            },
+            {
+              type: 'element-active',
+            },
+          ]}
+        />
+      ),
+    },
+  ];
+
+  return (
+    <PageContainer>
+      <Card title="Word Cloud - Top 100 Keywords" className={styles.card}>
+        <WordCloud
+          data={top100Words}
+          wordField="word"
+          colorField="word"
+          weightField="occurrence"
+          // wordStyle={{
+          //   fontFamily: 'Verdana',
+          //   fontSize: [24, 80],
+          // }}
+          interactions={[
+            {
+              type: 'element-active',
+            },
+          ]}
+          state={{
+            active: {
+              style: {
+                opacity: 0.8,
+              },
+            },
+          }}
+        />
+        <Alert
+          message="Analysis"
+          description={
+            <p>
+              As the comments are about movies and TVs, words like &apos;movie&apos;,
+              &apos;style&apos;, &apos;show&apos; & &apos;dvd&apos; occurred reasonably much.
+              <br />
+              Also, we may notice that positive words occured much more then negative words. In the
+              next section, we are going to select a few words and see their occurence.
+            </p>
+          }
+          type="info"
+          icon={<MessageOutlined />}
+          showIcon
+        />
+      </Card>
+      <Card title="Selected Keywords" className={styles.card}>
+        <Row gutter={8} justify="space-around">
+          {selectedKeywords.slice(0, 4).map((keyword) => {
+            const { occurrence, word, rank } = keyword;
+            return (
+              <Col span={5}>
+                <Statistic
+                  title={`${word} (rank #${rank})`}
+                  value={occurrence}
+                  formatter={formatter}
+                />
+              </Col>
+            );
+          })}
+        </Row>
+        <br />
+        <Row gutter={8} justify="space-around">
+          {selectedKeywords.slice(5, 9).map((keyword) => {
+            const { occurrence, word, rank } = keyword;
+            return (
+              <Col span={5}>
+                <Statistic
+                  title={`${word} (rank #${rank})`}
+                  value={occurrence}
+                  formatter={formatter}
+                />
+              </Col>
+            );
+          })}
+        </Row>
+        <br />
+        <Alert
+          message="Analysis"
+          description="Positive words occurred significantly more than negative ones. We may infer that more comments were positive. This could be double checked in sentiment analysis."
+          type="info"
+          icon={<MessageOutlined />}
+          showIcon
+        />
+      </Card>
+      <Card title="Word Occurrence Stats" className={styles.card}>
+        <Tabs defaultActiveKey="1" items={occurrenceTabItems} />
+        <Alert
+          message="Analysis"
+          description={
+            <p>
+              Here we can see that, a more extreme version of 80/20 rule appeared for keyword
+              occurence, where 13% of the vocabulary accounted for more than 99% of total
+              occurrence.
+            </p>
+          }
+          type="info"
+          icon={<MessageOutlined />}
+          showIcon
+        />
+      </Card>
+      <div className={styles.footer}>
+        visualization powered by{' '}
+        <a href="https://charts.ant.design/" rel="noreferrer" target="_blank">
+          Ant Design Charts
+        </a>
+      </div>
+    </PageContainer>
+  );
+};
+export default AddComment;

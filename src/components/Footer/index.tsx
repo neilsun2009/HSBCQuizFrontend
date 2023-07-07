@@ -9,9 +9,9 @@ const Footer: React.FC = () => {
       copyright={`${currentYear} Neil Sun`}
       links={[
         {
-          key: 'Ant Design Pro',
-          title: 'Ant Design Pro',
-          href: 'https://pro.ant.design',
+          key: 'Ant Design',
+          title: 'Ant Design',
+          href: 'https://ant.design',
           blankTarget: true,
         },
         // {

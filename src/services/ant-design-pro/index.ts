@@ -2,11 +2,10 @@
 /* eslint-disable */
 // API 更新时间：
 // API 唯一标识：
-import * as api from './api';
-import * as login from './login';
 import * as comment from './comment';
+import * as analysis from './analysis';
+
 export default {
-  api,
-  login,
+  analysis,
   comment,
 };

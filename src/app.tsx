@@ -1,10 +1,9 @@
 import Footer from '@/components/Footer';
 import RightContent from '@/components/RightContent';
-import { Html5Outlined, LinkOutlined, RobotOutlined, CloudServerOutlined } from '@ant-design/icons';
+import { Html5Outlined, RobotOutlined, CloudServerOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { PageLoading } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from 'umi';
-import { Link } from 'umi';
 import defaultSettings from '../config/defaultSettings';
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -35,10 +34,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     footerRender: () => <Footer />,
     onPageChange: () => {},
     links: [
-      <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-        <LinkOutlined />
-        <span>OpenAPI Doc</span>
-      </Link>,
       <a
         key="frontend"
         rel="noreferrer"

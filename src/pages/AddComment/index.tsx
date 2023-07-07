@@ -1,6 +1,6 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { Alert, Card, Space, AutoComplete, Button, message } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.less';
 import { getAutoCompletionComment } from '@/services/ant-design-pro/comment';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -12,6 +12,11 @@ const AddComment: React.FC = () => {
 
   const handleGetAutoCompletion = async (comment: string) => {
     try {
+      if (comment === '') {
+        setOptions([]);
+        setIsLoading(false);
+        return;
+      }
       const result = await getAutoCompletionComment({
         comment,
       });
@@ -34,6 +39,7 @@ const AddComment: React.FC = () => {
         setIsLoading(false);
       } else {
         setIsLoading(true);
+        setOptions([]);
       }
     } catch (error) {
       message.error('Get auto completion failed, please try again');
@@ -50,7 +56,9 @@ const AddComment: React.FC = () => {
     <PageContainer>
       <Card>
         <Alert
-          message={'Incorprated with LLM-based auto completion!'}
+          message={
+            'Incorprated with LLM-based auto completion! Smart detect your next input based on Amazon comments!'
+          }
           type="success"
           showIcon
           banner
@@ -71,12 +79,31 @@ const AddComment: React.FC = () => {
           </Space.Compact>
           {isLoading && (
             <Alert
-              message="LLM loading...just keep on typing"
+              message="LLM loading... Just keep on typing!"
               type="info"
               showIcon
               icon={<LoadingOutlined />}
             />
           )}
+        </div>
+        <div className={styles.footer}>
+          built with{' '}
+          <a href="https://github.com/microsoft/LoRA" rel="noreferrer" target="_blank">
+            LoRA
+          </a>{' '}
+          on{' '}
+          <a href="https://huggingface.co/distilgpt2" rel="noreferrer" target="_blank">
+            distilgpt2
+          </a>
+          <br />
+          hosted on{' '}
+          <a
+            href="https://huggingface.co/docs/api-inference/index"
+            rel="noreferrer"
+            target="_blank"
+          >
+            🤗Hugging Face Inference API
+          </a>
         </div>
       </Card>
     </PageContainer>

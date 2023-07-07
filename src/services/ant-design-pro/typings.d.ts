@@ -8,6 +8,18 @@ declare namespace API {
     isLoading: boolean;
   };
 
+  type Keyword = {
+    word: string;
+    occurrence: number;
+    rank: number;
+  };
+
+  type KeywordOccurrenceStat = {
+    threshold: number;
+    totalOccurrence: number;
+    numWords: number;
+  };
+
   type CurrentUser = {
     name?: string;
     avatar?: string;

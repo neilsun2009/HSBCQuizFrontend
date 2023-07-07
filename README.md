@@ -36,6 +36,12 @@ npm start
 npm run build
 ```
 
+### Deploy project
+
+```bash
+az storage blob upload-batch -s ./dist -d '$web' --account-name szbstorage --overwrite
+```
+
 ### Check code style
 
 ```bash
