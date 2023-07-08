@@ -78,11 +78,14 @@ const ProductCard: React.FC<Props> = (props) => {
                 />
               </div>
             </Popover>,
-            <IconText
-              icon={DollarOutlined}
-              text={'$' + (item.price > 0 ? item.price : '?')}
-              key="list-vertical-price"
-            />,
+            <Popover content={`Price in USD`}>
+              <IconText
+                icon={DollarOutlined}
+                text={'$' + (item.price > 0 ? item.price : '?')}
+                key="list-vertical-price"
+              />
+              ,
+            </Popover>,
           ]}
           extra={
             <Image
@@ -93,7 +96,10 @@ const ProductCard: React.FC<Props> = (props) => {
             />
           }
         >
-          <List.Item.Meta title={`"${item.title}" by ${item.brand}`} description={<></>} />
+          <List.Item.Meta
+            title={`"${item.title}" by ${item.brand || 'Unknown'}`}
+            description={<></>}
+          />
         </List.Item>
       )}
     ></List>

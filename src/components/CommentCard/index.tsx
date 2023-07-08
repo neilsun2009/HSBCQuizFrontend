@@ -14,10 +14,11 @@ const { Paragraph } = Typography;
 
 interface Props {
   comment: API.CommentSample;
+  showProduct?: boolean;
 }
 
 const CommentCard: React.FC<Props> = (props) => {
-  const { comment } = props;
+  const { comment, showProduct = true } = props;
 
   const sentimentIcon =
     comment.sentiment > 0.1 ? (
@@ -68,10 +69,14 @@ const CommentCard: React.FC<Props> = (props) => {
             }
           />
           <br />
-          <Card size="small">
-            <ProductCard product={comment.product} />
-          </Card>
-          <br />
+          {showProduct && (
+            <>
+              <Card size="small">
+                <ProductCard product={comment.product} />
+              </Card>
+              <br />
+            </>
+          )}
           <Card>
             <Paragraph ellipsis={{ rows: 10, expandable: true, symbol: 'more' }}>
               {item.review}

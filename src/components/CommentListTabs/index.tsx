@@ -4,10 +4,11 @@ import CommentCard from '../CommentCard';
 
 interface Props {
   comments: API.CommentSample[];
+  showProduct?: boolean;
 }
 
 const CommentListTabs: React.FC<Props> = (props) => {
-  const { comments } = props;
+  const { comments, showProduct = true } = props;
 
   return (
     <Tabs
@@ -18,7 +19,7 @@ const CommentListTabs: React.FC<Props> = (props) => {
           key: `${idx}`,
           children: (
             <div>
-              <CommentCard comment={comment} />
+              <CommentCard comment={comment} showProduct={showProduct} />
             </div>
           ),
         };

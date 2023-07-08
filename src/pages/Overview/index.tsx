@@ -46,17 +46,17 @@ const Overview: React.FC = () => {
       <Row gutter={16}>
         <Col span={6}>
           <Card bordered={false}>
-            <Statistic title="Comments" value={overview?.comments} formatter={formatter} />
-            <Link to="/comments-analysis">
-              <Button size="small">sentiment & more</Button>
+            <Statistic title="Keywords" value={overview?.keywords} formatter={formatter} />
+            <Link to="/keywords-analysis">
+              <Button size="small">word cloud & more</Button>
             </Link>
           </Card>
         </Col>
         <Col span={6}>
           <Card bordered={false}>
-            <Statistic title="Products" value={overview?.products} formatter={formatter} />
-            <Link to="/products-analysis">
-              <Button size="small">best & worst</Button>
+            <Statistic title="Comments" value={overview?.comments} formatter={formatter} />
+            <Link to="/comments-analysis">
+              <Button size="small">sentiment & more</Button>
             </Link>
           </Card>
         </Col>
@@ -70,9 +70,9 @@ const Overview: React.FC = () => {
         </Col>
         <Col span={6}>
           <Card bordered={false}>
-            <Statistic title="Keywords" value={overview?.keywords} formatter={formatter} />
-            <Link to="/keywords-analysis">
-              <Button size="small">word cloud & more</Button>
+            <Statistic title="Products" value={overview?.products} formatter={formatter} />
+            <Link to="/products-analysis">
+              <Button size="small">best & worst</Button>
             </Link>
           </Card>
         </Col>

@@ -92,7 +92,7 @@ const KeywordAnalysis: React.FC = () => {
           label={{
             type: 'spider',
             labelHeight: 28,
-            content: '{name}\n{percentage}',
+            content: '{name}: {percentage}\ncount: {value}',
           }}
           interactions={[
             {
@@ -117,7 +117,7 @@ const KeywordAnalysis: React.FC = () => {
           label={{
             type: 'spider',
             labelHeight: 28,
-            content: '{name}\n{percentage}',
+            content: '{name}: {percentage}\ncount: {value}',
           }}
           interactions={[
             {
@@ -165,7 +165,7 @@ const KeywordAnalysis: React.FC = () => {
               &apos;style&apos;, &apos;show&apos; & &apos;dvd&apos; occurred reasonably much.
               <br />
               Also, we may notice that positive words occured much more then negative words. In the
-              next section, we are going to select a few words and see their occurence.
+              next section, we are going to manually select a few words and see their occurences.
             </p>
           }
           type="info"
@@ -206,7 +206,16 @@ const KeywordAnalysis: React.FC = () => {
         <br />
         <Alert
           message="Analysis"
-          description="Positive words occurred significantly more than negative ones. We may infer that more comments were positive. This could be double checked in sentiment analysis."
+          description={
+            <p>
+              Here we manually chose 10 frequently used words, 5 positive + 5 negative, to see if
+              positive words occurred more than negative ones.
+              <br />
+              As the result shows, positive words occurred significantly more than negative ones. We
+              may infer that more comments were positive. This could be double checked in sentiment
+              analysis.
+            </p>
+          }
           type="info"
           icon={<MessageOutlined />}
           showIcon
