@@ -20,112 +20,75 @@ declare namespace API {
     numWords: number;
   };
 
-  type CurrentUser = {
-    name?: string;
-    avatar?: string;
-    userid?: string;
-    email?: string;
-    signature?: string;
-    title?: string;
-    group?: string;
-    tags?: { key?: string; label?: string }[];
-    notifyCount?: number;
-    unreadCount?: number;
-    country?: string;
-    access?: string;
-    geographic?: {
-      province?: { label?: string; key?: string };
-      city?: { label?: string; key?: string };
-    };
-    address?: string;
-    phone?: string;
+  type Product = {
+    asin: string;
+    avgOverall: number;
+    avgRating: number;
+    avgSentiment: number;
+    brand: string;
+    categories: string[];
+    imageUrl: string;
+    price: number;
+    reviewCount: number;
+    title: string;
   };
 
-  type ErrorResponse = {
-    /** 业务约定的错误码 */
-    errorCode: string;
-    /** 业务上的错误信息 */
-    errorMessage?: string;
-    /** 业务上的请求是否成功 */
-    success?: boolean;
+  type Customer = {
+    customerId: string;
+    cluster: number;
+    name: string;
   };
 
-  type FakeCaptcha = {
-    code?: number;
-    status?: string;
+  type CommentSample = {
+    customer: Customer;
+    product: Product;
+    overall: number;
+    sentiment: number;
+    rating: number;
+    summary: string;
+    review: string;
+    timestamp: number;
+    wordCount: number;
   };
 
-  type getFakeCaptchaParams = {
-    /** 手机号 */
-    phone?: string;
+  type Overview = {
+    customers: number;
+    comments: number;
+    products: number;
+    keywords: number;
   };
 
-  type LoginParams = {
-    username?: string;
-    password?: string;
-    autoLogin?: boolean;
-    type?: string;
+  type BestWorstProductStat = {
+    rank: number;
+    samples: CommentSample[];
   };
 
-  type LoginResult = {
-    status?: string;
-    type?: string;
-    currentAuthority?: string;
+  type ProductCommentCountStat = {
+    category: string;
+    count: number;
   };
 
-  type NoticeIconItem = {
-    id?: string;
-    extra?: string;
-    key?: string;
-    read?: boolean;
-    avatar?: string;
-    title?: string;
-    status?: string;
-    datetime?: string;
-    description?: string;
-    type?: NoticeIconItemType;
+  type CustomerClusterStat = {
+    cluster: number;
+    count: number;
+    samples: CommentSample[];
   };
 
-  type NoticeIconItemType = 'notification' | 'message' | 'event';
-
-  type NoticeIconList = {
-    data?: NoticeIconItem[];
-    /** 列表的内容总数 */
-    total?: number;
-    success?: boolean;
+  type CustomerClusterPoint = {
+    cluster: number;
+    x: number;
+    y: number;
   };
 
-  type PageParams = {
-    current?: number;
-    pageSize?: number;
+  type CommentRatingStat = {
+    rating: number;
+    count: number;
+    samples: CommentSample[];
   };
 
-  type RuleList = {
-    data?: RuleListItem[];
-    /** 列表的内容总数 */
-    total?: number;
-    success?: boolean;
-  };
-
-  type RuleListItem = {
-    key?: number;
-    disabled?: boolean;
-    href?: string;
-    avatar?: string;
-    name?: string;
-    owner?: string;
-    desc?: string;
-    callNo?: number;
-    status?: number;
-    updatedAt?: string;
-    createdAt?: string;
-    progress?: number;
-  };
-
-  type ruleParams = {
-    /** 当前的页码 */
-    current?: number;
-    /** 页面的容量 */
-    pageSize?: number;
+  type CommonStat = {
+    category: string;
+    count: number;
+    samples: CommentSample[];
   };
 }

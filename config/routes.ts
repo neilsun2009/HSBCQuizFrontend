@@ -1,27 +1,21 @@
 export default [
   {
-    path: '/add',
+    path: '/overview',
+    name: 'Overview',
+    icon: 'home',
+    component: './Overview',
+  },
+  {
+    path: '/add-comment',
     name: 'New Comment',
     icon: 'plus-circle',
     component: './AddComment',
   },
   {
-    name: 'Keywords Analysis',
-    icon: 'font-colors',
-    path: '/keywords-analysis',
-    component: './KeywordAnalysis',
-  },
-  {
-    name: 'Consumer Clustering',
-    icon: 'team',
-    path: '/consumer-clustering',
-    component: './KeywordAnalysis',
-  },
-  {
     name: 'Comments Analysis',
     icon: 'comment',
     path: '/comments-analysis',
-    component: './KeywordAnalysis',
+    component: './CommentAnalysis',
   },
   {
     name: 'Products Analysis',
@@ -30,8 +24,20 @@ export default [
     component: './KeywordAnalysis',
   },
   {
+    name: 'Customer Clustering',
+    icon: 'team',
+    path: '/customer-clustering',
+    component: './KeywordAnalysis',
+  },
+  {
+    name: 'Keywords Analysis',
+    icon: 'font-colors',
+    path: '/keywords-analysis',
+    component: './KeywordAnalysis',
+  },
+  {
     path: '/',
-    redirect: '/add',
+    redirect: '/overview',
   },
   {
     component: './404',

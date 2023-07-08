@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.less';
 import {
   getKeywordOccurenceStats,
-  getKeywordTop100,
+  getKeywordTop500,
   getSelectedKeywords,
 } from '@/services/ant-design-pro/analysis';
 import { WordCloud, Pie } from '@ant-design/plots';
@@ -13,18 +13,18 @@ import CountUp from 'react-countup';
 
 const formatter = (value: number) => <CountUp end={value} separator="," />;
 
-const AddComment: React.FC = () => {
-  const [top100Words, setTop100Words] = useState<API.Keyword[]>([]);
+const KeywordAnalysis: React.FC = () => {
+  const [top500Words, setTop500Words] = useState<API.Keyword[]>([]);
   const [selectedKeywords, setSelectedKeywords] = useState<API.Keyword[]>([]);
   const [occurrenceCounts, setOccurrenceCounts] = useState<{ value: number; type: string }[]>([]);
   const [occurrenceTimes, setOccurrenceTimes] = useState<{ value: number; type: string }[]>([]);
 
-  const handleGetKeywordTop100 = async () => {
+  const handleGetKeywordTop500 = async () => {
     try {
-      const result = await getKeywordTop100();
-      setTop100Words(result);
+      const result = await getKeywordTop500();
+      setTop500Words(result);
     } catch (error) {
-      message.error('Get auto completion failed, please try again');
+      message.error('Get top 500 keywords failed, please try again');
     }
   };
 
@@ -33,7 +33,7 @@ const AddComment: React.FC = () => {
       const result = await getSelectedKeywords();
       setSelectedKeywords(result);
     } catch (error) {
-      message.error('Get auto completion failed, please try again');
+      message.error('Get selected keywords failed, please try again');
     }
   };
 
@@ -69,12 +69,12 @@ const AddComment: React.FC = () => {
       setOccurrenceTimes(times);
       console.log(times);
     } catch (error) {
-      message.error('Get auto completion failed, please try again');
+      message.error('Get keyword occurences failed, please try again');
     }
   };
 
   useEffect(() => {
-    handleGetKeywordTop100();
+    handleGetKeywordTop500();
     handleGetSelectedKeywords();
     handleGetWordOccurenceStats();
   }, []);
@@ -82,7 +82,7 @@ const AddComment: React.FC = () => {
   const occurrenceTabItems = [
     {
       key: '1',
-      label: `How many kind of words fall into each category?`,
+      label: `How big is the vocabulary for each occurrence category?`,
       children: (
         <Pie
           data={occurrenceCounts}
@@ -134,9 +134,9 @@ const AddComment: React.FC = () => {
 
   return (
     <PageContainer>
-      <Card title="Word Cloud - Top 100 Keywords" className={styles.card}>
+      <Card title="Word Cloud - Top 500 Keywords" className={styles.card}>
         <WordCloud
-          data={top100Words}
+          data={top500Words}
           wordField="word"
           colorField="word"
           weightField="occurrence"
@@ -221,6 +221,8 @@ const AddComment: React.FC = () => {
               Here we can see that, a more extreme version of 80/20 rule appeared for keyword
               occurence, where 13% of the vocabulary accounted for more than 99% of total
               occurrence.
+              <br />
+              We indeed repeat amongst ourselves the frequent words.
             </p>
           }
           type="info"
@@ -237,4 +239,4 @@ const AddComment: React.FC = () => {
     </PageContainer>
   );
 };
-export default AddComment;
+export default KeywordAnalysis;

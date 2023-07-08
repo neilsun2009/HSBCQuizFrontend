@@ -9,27 +9,21 @@ const Footer: React.FC = () => {
       copyright={`${currentYear} Neil Sun`}
       links={[
         {
-          key: 'Ant Design',
-          title: 'Ant Design',
-          href: 'https://ant.design',
-          blankTarget: true,
-        },
-        // {
-        //   key: 'github',
-        //   title: <GithubOutlined />,
-        //   href: 'https://github.com/ant-design/ant-design-pro',
-        //   blankTarget: true,
-        // },
-        {
-          key: 'Azure',
-          title: 'Azure',
-          href: 'https://azure.microsoft.com/',
+          key: 'frontend',
+          title: 'Frontend Repo',
+          href: 'https://github.com/neilsun2009/HSBCQuizFrontend',
           blankTarget: true,
         },
         {
-          key: 'Hugging Face',
-          title: '🤗Hugging Face',
-          href: 'https://huggingface.co/',
+          key: 'backend',
+          title: 'Backend Repo',
+          href: 'https://github.com/neilsun2009/HSBCQuizBackend',
+          blankTarget: true,
+        },
+        {
+          key: 'daml',
+          title: 'DnA & ML Repo',
+          href: 'https://github.com/neilsun2009/HSBCQuizDataML',
           blankTarget: true,
         },
       ]}

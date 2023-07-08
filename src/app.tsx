@@ -33,35 +33,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     waterMarkProps: {},
     footerRender: () => <Footer />,
     onPageChange: () => {},
-    links: [
-      <a
-        key="frontend"
-        rel="noreferrer"
-        href="https://github.com/neilsun2009/HSBCQuizFrontend"
-        target="_blank"
-      >
-        <Html5Outlined />
-        <span>Frontend Repo</span>
-      </a>,
-      <a
-        key="backend"
-        rel="noreferrer"
-        href="https://github.com/neilsun2009/HSBCQuizBackend"
-        target="_blank"
-      >
-        <CloudServerOutlined />
-        <span>Backend Repo</span>
-      </a>,
-      <a
-        key="DnA+ML"
-        rel="noreferrer"
-        href="https://github.com/neilsun2009/HSBCQuizDataML"
-        target="_blank"
-      >
-        <RobotOutlined />
-        <span>DnA + ML Repo</span>
-      </a>,
-    ],
+    links: [],
     menuHeaderRender: undefined,
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,

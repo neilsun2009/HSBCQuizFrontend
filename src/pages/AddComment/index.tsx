@@ -17,6 +17,8 @@ const AddComment: React.FC = () => {
         setIsLoading(false);
         return;
       }
+      // setOptions([]);
+      // setIsLoading(true);
       const result = await getAutoCompletionComment({
         comment,
       });
@@ -49,7 +51,7 @@ const AddComment: React.FC = () => {
   const submitComment = () => {
     setValue('');
     setOptions([]);
-    message.success('Comment submitted!');
+    message.success('Comment mock submitted!');
   };
 
   return (
@@ -71,6 +73,9 @@ const AddComment: React.FC = () => {
               placeholder="Write your comments..."
               options={options}
               value={value}
+              onChange={(v) => {
+                setValue(v);
+              }}
               onSearch={handleGetAutoCompletion}
             />
             <Button size="large" type="primary" onClick={submitComment}>
