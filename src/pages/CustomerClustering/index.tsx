@@ -129,7 +129,7 @@ const CustomerClustering: React.FC = () => {
       </Card>
       <Card title="Customer Cluster Stats" className={styles.card}>
         <Pie
-          data={customerClusterStats}
+          data={customerClusterStats.map((c) => ({ ...c, cluster: `cluster #${c.cluster}` }))}
           angleField="count"
           colorField="cluster"
           radius={0.75}

@@ -133,7 +133,7 @@ const ProductAnalysis: React.FC = () => {
               which is the average of customer rating and sentiment score. Note that they are not in
               the same scale, so normalization is needed.
               <br />
-              The we calculate the average overall rating of all the comments each product has
+              Then we calculate the average overall rating of all the comments each product has
               received. And then do the sorting.
               <br />
               As for choosing best and worst products, we set a threshold of at least 20 comments,
