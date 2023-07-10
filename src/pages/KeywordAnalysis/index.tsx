@@ -208,7 +208,7 @@ const KeywordAnalysis: React.FC = () => {
           message="Analysis"
           description={
             <p>
-              Here we manually chose 10 frequently used words, 5 positive + 5 negative, to see if
+              Here we manually chose 8 frequently used words, 4 positive + 4 negative, to see if
               positive words occurred more than negative ones.
               <br />
               As the result shows, positive words occurred significantly more than negative ones. We
