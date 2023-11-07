@@ -1,6 +1,6 @@
-# HSBCQuizFrontend
+# JuneQuizFrontend
 
-Frontend code base from HSBC quiz
+Frontend code base from June quiz
 
 This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
 
